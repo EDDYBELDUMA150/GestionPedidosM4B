@@ -7,9 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="productos")
+@Table(name="productos", uniqueConstraints = {@UniqueConstraint(columnNames = { "id_pedido"})})
 public class Producto implements Serializable {
 
 	/**
@@ -25,6 +26,7 @@ public class Producto implements Serializable {
 	private String prod_tipo;
 	private String prod_descripcion;
 	private double prod_preciounitario;
+	
 	
 	public long getProd_id() {
 		return prod_id;

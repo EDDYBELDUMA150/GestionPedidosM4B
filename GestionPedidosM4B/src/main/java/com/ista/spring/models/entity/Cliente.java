@@ -1,11 +1,20 @@
 package com.ista.spring.models.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 @Table(name="clientes")
@@ -26,6 +35,10 @@ public class Cliente implements Serializable {
 	private String cli_correo;
 	private String cli_clave;
 	private String cli_telefono;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_cliente")
+	private List<Pedido> pedido;
 	
 	public long getCli_id() {
 		return cli_id;
