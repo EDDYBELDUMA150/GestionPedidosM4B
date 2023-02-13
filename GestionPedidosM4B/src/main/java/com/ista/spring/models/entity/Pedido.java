@@ -4,14 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,7 +17,7 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.PrePersist;
 
 @Entity
-@Table(name="pedidos", uniqueConstraints = {@UniqueConstraint(columnNames = { "id_cliente"})})
+@Table(name="pedidos", uniqueConstraints = {@UniqueConstraint(columnNames = { "id_cliente","id_producto"})})
 public class Pedido implements Serializable {
 
 	/**
@@ -33,6 +29,8 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long ped_id;
 	
+	//ola esta es una prueba gg
+	
 	@Column(name = "ped_fecha")
 	@Temporal(TemporalType.DATE)
 	private Date ped_fecha;
@@ -41,9 +39,6 @@ public class Pedido implements Serializable {
 	private String ped_direccionenvio;
 	private String ped_estado;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_pedido")
-	private List<Producto> producto;
 	
 	@PrePersist
 	public void prePersist() {
