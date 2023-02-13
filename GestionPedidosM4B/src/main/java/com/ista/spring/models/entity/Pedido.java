@@ -25,7 +25,7 @@ public class Pedido implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long ped_id;
 	
 	@Column(name = "ped_fecha")
 	@Temporal(TemporalType.DATE)
@@ -40,12 +40,12 @@ public class Pedido implements Serializable {
 		ped_fecha = new Date();
 	}
 
-	public long getId() {
-		return id;
+	public long getPed_id() {
+		return ped_id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setPed_id(long ped_id) {
+		this.ped_id = ped_id;
 	}
 
 	public Date getPed_fecha() {
