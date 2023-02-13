@@ -5,7 +5,8 @@ import java.util.List;
 import com.ista.spring.models.entity.Producto;
 
 public interface IProductosService {
-public List<Producto> findAll();
+	
+	public List<Producto> findAll();
 	
 	public Producto save(Producto producto);
 	

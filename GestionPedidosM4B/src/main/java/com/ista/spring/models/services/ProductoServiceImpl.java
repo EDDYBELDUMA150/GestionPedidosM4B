@@ -2,32 +2,34 @@ package com.ista.spring.models.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ista.spring.models.dao.IProductoDao;
 import com.ista.spring.models.entity.Producto;
 
 public class ProductoServiceImpl implements IProductosService{
 
+	@Autowired
+	private IProductoDao prodDao;
+	
 	@Override
 	public List<Producto> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Producto>) prodDao.findAll();
 	}
 
 	@Override
 	public Producto save(Producto producto) {
-		// TODO Auto-generated method stub
-		return null;
+		return prodDao.save(producto);
 	}
 
 	@Override
 	public Producto findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return prodDao.findById(id).orElse(null);
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
-		
+		prodDao.deleteById(id);
 	}
 
 }
