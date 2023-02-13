@@ -1,15 +1,22 @@
 package com.ista.spring.models.entity;
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(name="detalle_pedido")
+@Table(name="detalle_pedido", uniqueConstraints = {@UniqueConstraint(columnNames = {"id_pedido"})})
 public class Detalle_Pedido implements Serializable {
 
 	/**
@@ -25,6 +32,10 @@ public class Detalle_Pedido implements Serializable {
 	private int deta_cantidad;
 	private String deta_descripcion;
 	private double deta_precio_total;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "id_pedido")
+	private Pedido pedido;
 	
 	public long getDeta_id() {
 		return deta_id;
