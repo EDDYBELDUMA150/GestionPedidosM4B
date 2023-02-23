@@ -3,10 +3,12 @@ package com.ista.spring.models.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ista.spring.models.dao.IProductoDao;
 import com.ista.spring.models.entity.Producto;
 
+@Service
 public class ProductoServiceImpl implements IProductosService{
 
 	@Autowired
