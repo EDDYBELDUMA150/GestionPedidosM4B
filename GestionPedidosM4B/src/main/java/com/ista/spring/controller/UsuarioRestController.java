@@ -53,10 +53,10 @@ public class UsuarioRestController {
 		Usuario usuarioActual = usuarioService.findById(id);
 		usuarioActual.setUsu_identificacion(usuario.getUsu_identificacion());
 		usuarioActual.setUsu_nombre(usuario.getUsu_nombre());
-		usuarioActual.setDireccion(usuario.getDireccion());
+		usuarioActual.setUsu_direccion(usuario.getUsu_direccion());
 		usuarioActual.setUsu_correo(usuario.getUsu_correo());
 		usuarioActual.setUsu_clave(usuario.getUsu_clave());
-		usuarioActual.setRol(usuario.getRol());
+		usuarioActual.setUsu_rol(usuario.getUsu_rol());
 		return usuarioService.save(usuarioActual);	
 	}
 	

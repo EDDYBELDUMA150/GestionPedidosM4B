@@ -18,19 +18,32 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long usu_id;
-	
 	private String usu_nombre;
 	private String usu_identificacion;
 	private String usu_correo;
 	private String usu_clave;
-	private String rol;
-	private String direccion;
+	private String usu_rol;
+	private String usu_direccion;
 	
-	public long getId() {
+	
+
+	public long getUsu_id() {
 		return usu_id;
 	}
-	public void setId(long id) {
-		this.usu_id = id;
+	public void setUsu_id(long usu_id) {
+		this.usu_id = usu_id;
+	}
+	public String getUsu_rol() {
+		return usu_rol;
+	}
+	public void setUsu_rol(String usu_rol) {
+		this.usu_rol = usu_rol;
+	}
+	public String getUsu_direccion() {
+		return usu_direccion;
+	}
+	public void setUsu_direccion(String usu_direccion) {
+		this.usu_direccion = usu_direccion;
 	}
 	public String getUsu_nombre() {
 		return usu_nombre;
@@ -56,19 +69,5 @@ public class Usuario implements Serializable {
 	public void setUsu_clave(String usu_clave) {
 		this.usu_clave = usu_clave;
 	}
-	public String getRol() {
-		return rol;
-	}
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
-	public String getDireccion() {
-		return direccion;
-	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-	
-	
 	
 }
