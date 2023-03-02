@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ista.spring.models.entity.Producto;
 import com.ista.spring.models.services.IProductosService;
 
+@CrossOrigin(origins=("http://localhost:4200"))
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins=("http://localhost:4200"))
 public class ProductoRestController {
 
 	@Autowired
@@ -50,6 +50,7 @@ public class ProductoRestController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Producto update(@RequestBody Producto producto, @PathVariable Long id ) {
 		Producto productoActual = productoService.findById(id);
+		productoActual.setProd_codigo(producto.getProd_codigo());
 		productoActual.setProd_nombre(producto.getProd_nombre());
 		productoActual.setProd_descripcion(producto.getProd_descripcion());
 		productoActual.setProd_preciounitario(producto.getProd_preciounitario());

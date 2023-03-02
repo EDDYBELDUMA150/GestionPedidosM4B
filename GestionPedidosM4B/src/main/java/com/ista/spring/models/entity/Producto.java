@@ -25,7 +25,7 @@ public class Producto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long prod_id;
-	
+	private String prod_codigo;
 	private String prod_nombre;
 	private String prod_tipo;
 	private String prod_descripcion;
@@ -40,6 +40,13 @@ public class Producto implements Serializable {
 	}
 	public void setProd_id(long prod_id) {
 		this.prod_id = prod_id;
+	}
+	
+	public String getProd_codigo() {
+		return prod_codigo;
+	}
+	public void setProd_codigo(String prod_codigo) {
+		this.prod_codigo = prod_codigo;
 	}
 	public String getProd_nombre() {
 		return prod_nombre;
