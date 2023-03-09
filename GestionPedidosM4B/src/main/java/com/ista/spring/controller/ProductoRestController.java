@@ -29,7 +29,7 @@ public class ProductoRestController {
 	public IProductosService productoService;
 	
 	//listar todos
-	@GetMapping("/producto/list")
+	@GetMapping("/producto")
 	public ResponseEntity<List<Producto>> list() {
 		try {
 			return new ResponseEntity<>(productoService.findAll(), HttpStatus.OK);
@@ -40,7 +40,7 @@ public class ProductoRestController {
 	}
 	
 	//buscar
-	@GetMapping("/producto/search/{id}")
+	@GetMapping("/producto/{id}")
 	public ResponseEntity<Producto> search(@PathVariable("id") Long id) {
 		try {
 			return new ResponseEntity<>(productoService.findById(id), HttpStatus.OK);
@@ -50,7 +50,7 @@ public class ProductoRestController {
 	}
 	
 	//guardar
-	@PostMapping("/producto/create")
+	@PostMapping("/producto")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Producto> create(@RequestBody Producto producto) {
 		try {
@@ -62,7 +62,7 @@ public class ProductoRestController {
 	}
 	
 	// editar
-	@PutMapping("/producto/update/{id}")
+	@PutMapping("/producto/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Producto> update(@RequestBody Producto productoRb, @PathVariable("id") Long id) {
 		Producto pro = productoService.findById(id);
@@ -85,7 +85,7 @@ public class ProductoRestController {
 	}
 	
 	//eliminar
-	@DeleteMapping("/producto/delete/{id}")
+	@DeleteMapping("/producto/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		try {

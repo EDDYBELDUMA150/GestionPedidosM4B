@@ -34,6 +34,7 @@ public class Producto implements Serializable {
 	private Integer stock;
 	private String prod_descripcion;
 	private double prod_preciounitario;
+	private String prod_img;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_producto")
@@ -87,6 +88,12 @@ public class Producto implements Serializable {
 	}
 	public void setDetalle(Detalle_Pedido detalle) {
 		this.detalle = detalle;
+	}
+	public String getProd_img() {
+		return prod_img;
+	}
+	public void setProd_img(String prod_img) {
+		this.prod_img = prod_img;
 	}
 	
 	
