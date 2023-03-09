@@ -1,6 +1,7 @@
 package com.ista.spring.models.entity;
 
 import java.io.Serializable;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="productos")
@@ -28,12 +31,13 @@ public class Producto implements Serializable {
 	private String prod_codigo;
 	private String prod_nombre;
 	private String prod_tipo;
+	private Integer stock;
 	private String prod_descripcion;
 	private double prod_preciounitario;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_producto")
-	private List<Pedido> pedido;
+	private Detalle_Pedido detalle;
 	
 	public long getProd_id() {
 		return prod_id;
@@ -71,6 +75,18 @@ public class Producto implements Serializable {
 	}
 	public void setProd_preciounitario(double prod_preciounitario) {
 		this.prod_preciounitario = prod_preciounitario;
+	}
+	public Integer getStock() {
+		return stock;
+	}
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+	public Detalle_Pedido getDetalle() {
+		return detalle;
+	}
+	public void setDetalle(Detalle_Pedido detalle) {
+		this.detalle = detalle;
 	}
 	
 	

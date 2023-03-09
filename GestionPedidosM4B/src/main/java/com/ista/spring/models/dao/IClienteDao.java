@@ -1,3 +1,4 @@
+
 package com.ista.spring.models.dao;
 
 import org.springframework.data.repository.CrudRepository;

@@ -82,6 +82,12 @@ public class Cliente implements Serializable {
 	public void setCli_telefono(String cli_telefono) {
 		this.cli_telefono = cli_telefono;
 	}
+	public List<Pedido> getPedido() {
+		return pedido;
+	}
+	public void setPedido(List<Pedido> pedido) {
+		this.pedido = pedido;
+	}
 	
 	
 	

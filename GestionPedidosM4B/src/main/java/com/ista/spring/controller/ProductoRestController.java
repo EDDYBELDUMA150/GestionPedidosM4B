@@ -3,7 +3,9 @@ package com.ista.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,41 +29,72 @@ public class ProductoRestController {
 	public IProductosService productoService;
 	
 	//listar todos
-	@GetMapping( "/productos")
-	public List<Producto> indext(){
-		return productoService.findAll();
+	@GetMapping("/producto/list")
+	public ResponseEntity<List<Producto>> list() {
+		try {
+			return new ResponseEntity<>(productoService.findAll(), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 	
 	//buscar
-	@GetMapping("/productos/{id}")
-	public Producto show(@PathVariable Long id) {
-		return productoService.findById(id);
+	@GetMapping("/producto/search/{id}")
+	public ResponseEntity<Producto> search(@PathVariable("id") Long id) {
+		try {
+			return new ResponseEntity<>(productoService.findById(id), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	//guardar
-	@PostMapping("/productos")
+	@PostMapping("/producto/create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Producto create(@RequestBody Producto producto) {
-		return productoService.save(producto);
+	public ResponseEntity<Producto> create(@RequestBody Producto producto) {
+		try {
+			return new ResponseEntity<>(productoService.save(producto), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 	
 	// editar
-	@PutMapping("/productos/{id}")
+	@PutMapping("/producto/update/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Producto update(@RequestBody Producto producto, @PathVariable Long id ) {
-		Producto productoActual = productoService.findById(id);
-		productoActual.setProd_codigo(producto.getProd_codigo());
-		productoActual.setProd_nombre(producto.getProd_nombre());
-		productoActual.setProd_descripcion(producto.getProd_descripcion());
-		productoActual.setProd_preciounitario(producto.getProd_preciounitario());
-		productoActual.setProd_tipo(producto.getProd_tipo());
-		return productoService.save(productoActual);	
+	public ResponseEntity<Producto> update(@RequestBody Producto productoRb, @PathVariable("id") Long id) {
+		Producto pro = productoService.findById(id);
+
+		if (pro == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			try {
+				pro.setProd_codigo(productoRb.getProd_codigo());
+				pro.setProd_nombre(productoRb.getProd_nombre());
+				pro.setProd_descripcion(productoRb.getProd_descripcion());
+				pro.setProd_preciounitario(productoRb.getProd_preciounitario());
+				pro.setProd_tipo(productoRb.getProd_tipo());
+				pro.setStock(productoRb.getStock());
+		return new ResponseEntity<>(productoService.save(productoRb), HttpStatus.CREATED);
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 	}
 	
 	//eliminar
-	@DeleteMapping("/productos/{id}")
+	@DeleteMapping("/producto/delete/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable Long id) {
-		productoService.delete(id);
+	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+		try {
+			productoService.delete(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al elminar el Registro");
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }

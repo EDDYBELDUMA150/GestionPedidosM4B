@@ -3,7 +3,9 @@ package com.ista.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,40 +29,70 @@ public class PedidoRestController {
 	public IPedidoService pedidoService;
 	
 	//listar todos
-	@GetMapping( "/pedidos")
-	public List<Pedido> indext(){
-		return pedidoService.findAll();
+	@GetMapping("/pedido/list")
+	public ResponseEntity<List<Pedido>> list() {
+		try {
+			return new ResponseEntity<>(pedidoService.findAll(), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 	
 	//buscar
-	@GetMapping("/pedidos/{id}")
-	public Pedido show(@PathVariable Long id) {
-		return pedidoService.findById(id);
+	@GetMapping("/pedido/search/{id}")
+	public ResponseEntity<Pedido> search(@PathVariable("id") Long id) {
+		try {
+			return new ResponseEntity<>(pedidoService.findById(id), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	//guardar
-	@PostMapping("/pedidos")
+	@PostMapping("/pedido/create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Pedido create(@RequestBody Pedido pedido) {
-		return pedidoService.save(pedido);
+	public ResponseEntity<Pedido> create(@RequestBody Pedido pedido) {
+		try {
+			return new ResponseEntity<>(pedidoService.save(pedido), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 	
 	// editar
-	@PutMapping("/pedidos/{id}")
+	@PutMapping("/pedido/update/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Pedido update(@RequestBody Pedido pedido, @PathVariable Long id ) {
-		Pedido pedidoActual = pedidoService.findById(id);
-		pedidoActual.setPed_descripcion(pedido.getPed_descripcion());
-		pedidoActual.setPed_direccionenvio(pedido.getPed_direccionenvio());
-		pedidoActual.setPed_estado(pedido.getPed_estado());
-		pedidoActual.setPed_fecha(pedido.getPed_fecha());
-		return pedidoService.save(pedidoActual);	
+	public ResponseEntity<Pedido> update(@RequestBody Pedido pedidoRb, @PathVariable("id") Long id) {
+		Pedido ped = pedidoService.findById(id);
+
+		if (ped == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			try {
+		ped.setPed_descripcion(pedidoRb.getPed_descripcion());
+		ped.setPed_direccionenvio(pedidoRb.getPed_direccionenvio());
+		ped.setPed_estado(pedidoRb.getPed_estado());
+		ped.setPed_fecha(pedidoRb.getPed_fecha());
+		return new ResponseEntity<>(pedidoService.save(pedidoRb), HttpStatus.CREATED);
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 	}
 	
 	//eliminar
-	@DeleteMapping("/pedidos/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable Long id) {
-		pedidoService.delete(id);
+	@DeleteMapping("/pedido/delete/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+		try {
+			pedidoService.delete(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al elminar el Registro");
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }
