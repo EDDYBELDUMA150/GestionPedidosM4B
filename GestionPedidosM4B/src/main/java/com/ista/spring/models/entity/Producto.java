@@ -83,12 +83,6 @@ public class Producto implements Serializable {
 	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
-	public Detalle_Pedido getDetalle() {
-		return detalle;
-	}
-	public void setDetalle(Detalle_Pedido detalle) {
-		this.detalle = detalle;
-	}
 	public String getProd_img() {
 		return prod_img;
 	}

@@ -29,7 +29,7 @@ public class PedidoRestController {
 	public IPedidoService pedidoService;
 	
 	//listar todos
-	@GetMapping("/pedido/list")
+	@GetMapping("/pedido")
 	public ResponseEntity<List<Pedido>> list() {
 		try {
 			return new ResponseEntity<>(pedidoService.findAll(), HttpStatus.OK);
@@ -40,7 +40,7 @@ public class PedidoRestController {
 	}
 	
 	//buscar
-	@GetMapping("/pedido/search/{id}")
+	@GetMapping("/pedido/{id}")
 	public ResponseEntity<Pedido> search(@PathVariable("id") Long id) {
 		try {
 			return new ResponseEntity<>(pedidoService.findById(id), HttpStatus.OK);
@@ -50,7 +50,7 @@ public class PedidoRestController {
 	}
 	
 	//guardar
-	@PostMapping("/pedido/create")
+	@PostMapping("/pedido")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Pedido> create(@RequestBody Pedido pedido) {
 		try {
@@ -62,7 +62,7 @@ public class PedidoRestController {
 	}
 	
 	// editar
-	@PutMapping("/pedido/update/{id}")
+	@PutMapping("/pedido/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Pedido> update(@RequestBody Pedido pedidoRb, @PathVariable("id") Long id) {
 		Pedido ped = pedidoService.findById(id);
@@ -83,7 +83,7 @@ public class PedidoRestController {
 	}
 	
 	//eliminar
-	@DeleteMapping("/pedido/delete/{id}")
+	@DeleteMapping("/pedido/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		try {

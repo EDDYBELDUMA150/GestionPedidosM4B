@@ -1,6 +1,14 @@
 package com.ista.spring.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,8 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ista.spring.models.entity.Producto;
 import com.ista.spring.models.services.IProductosService;
@@ -59,6 +69,44 @@ public class ProductoRestController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+	
+	@PostMapping("/producto/upload")
+	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
+		Map<String, Object> response = new HashMap<>();
+		
+		Producto producto = productoService.findById(id);
+		
+		if(!archivo.isEmpty()) {
+			String nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
+			Path rutaArchivo = Paths.get("uploads").resolve(nombreArchivo).toAbsolutePath();
+			//log.info(rutaArchivo.toString());
+			
+			try {
+				Files.copy(archivo.getInputStream(), rutaArchivo);
+			}catch (IOException e){
+				response.put("mensaje", "Error al subir la imagen del producto"+ nombreArchivo);
+				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			String nombreFotoAnterior = producto.getProd_img();
+			
+			if(nombreFotoAnterior !=null && nombreFotoAnterior.length()>0) {
+				Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
+				File archivoFotoAnterior = rutaFotoAnterior.toFile();
+				if(archivoFotoAnterior.exists()&& archivoFotoAnterior.canRead()) {
+					archivoFotoAnterior.delete();
+				}
+				
+			}
+			producto.setProd_img(nombreArchivo);
+			productoService.save(producto);
+			
+			response.put("producto", producto);
+			response.put("mensaje", "Has subido correctamente la imagen: "+ nombreArchivo);
+		}
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
 	// editar
