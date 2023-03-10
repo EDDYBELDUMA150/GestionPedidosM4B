@@ -151,7 +151,7 @@ public class ProductoRestController {
 				pro.setProd_descripcion(productoRb.getProd_descripcion());
 				pro.setProd_preciounitario(productoRb.getProd_preciounitario());
 				pro.setProd_tipo(productoRb.getProd_tipo());
-				pro.setStock(productoRb.getStock());
+				pro.setProd_stock(productoRb.getProd_stock());
 		return new ResponseEntity<>(productoService.save(productoRb), HttpStatus.CREATED);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
