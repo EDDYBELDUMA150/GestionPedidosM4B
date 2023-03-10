@@ -31,7 +31,7 @@ public class Producto implements Serializable {
 	private String prod_codigo;
 	private String prod_nombre;
 	private String prod_tipo;
-	private Integer stock;
+	private Integer prod_stock;
 	private String prod_descripcion;
 	private double prod_preciounitario;
 	private String prod_img;
@@ -77,11 +77,12 @@ public class Producto implements Serializable {
 	public void setProd_preciounitario(double prod_preciounitario) {
 		this.prod_preciounitario = prod_preciounitario;
 	}
-	public Integer getStock() {
-		return stock;
+	
+	public Integer getProd_stock() {
+		return prod_stock;
 	}
-	public void setStock(Integer stock) {
-		this.stock = stock;
+	public void setProd_stock(Integer prod_stock) {
+		this.prod_stock = prod_stock;
 	}
 	public String getProd_img() {
 		return prod_img;
