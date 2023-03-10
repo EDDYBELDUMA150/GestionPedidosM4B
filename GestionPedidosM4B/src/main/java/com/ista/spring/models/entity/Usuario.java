@@ -1,10 +1,17 @@
 package com.ista.spring.models.entity;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="usuarios")
@@ -18,19 +25,38 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long usu_id;
-	
 	private String usu_nombre;
+	private String usu_apellido;
 	private String usu_identificacion;
 	private String usu_correo;
 	private String usu_clave;
-	private String rol;
-	private String direccion;
+	private String usu_rol;
+	private String usu_direccion;
 	
-	public long getId() {
+	@OneToMany(fetch= FetchType.LAZY, mappedBy = "persona", cascade= CascadeType.ALL)
+    private List<Pedido> pedido;
+    
+    public Usuario() {
+		this.pedido = new ArrayList<>();
+	}
+
+	public long getUsu_id() {
 		return usu_id;
 	}
-	public void setId(long id) {
-		this.usu_id = id;
+	public void setUsu_id(long usu_id) {
+		this.usu_id = usu_id;
+	}
+	public String getUsu_rol() {
+		return usu_rol;
+	}
+	public void setUsu_rol(String usu_rol) {
+		this.usu_rol = usu_rol;
+	}
+	public String getUsu_direccion() {
+		return usu_direccion;
+	}
+	public void setUsu_direccion(String usu_direccion) {
+		this.usu_direccion = usu_direccion;
 	}
 	public String getUsu_nombre() {
 		return usu_nombre;
@@ -56,19 +82,21 @@ public class Usuario implements Serializable {
 	public void setUsu_clave(String usu_clave) {
 		this.usu_clave = usu_clave;
 	}
-	public String getRol() {
-		return rol;
+
+	public String getUsu_apellido() {
+		return usu_apellido;
 	}
-	public void setRol(String rol) {
-		this.rol = rol;
+
+	public void setUsu_apellido(String usu_apellido) {
+		this.usu_apellido = usu_apellido;
 	}
-	public String getDireccion() {
-		return direccion;
+
+	public List<Pedido> getPedido() {
+		return pedido;
 	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+
+	public void setPedido(List<Pedido> pedido) {
+		this.pedido = pedido;
 	}
-	
-	
 	
 }

@@ -1,48 +1,49 @@
 package com.ista.spring.models.entity;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import javax.persistence.UniqueConstraint;
-
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 
 @Entity
-@Table(name="pedidos", uniqueConstraints = {@UniqueConstraint(columnNames = { "id_cliente","id_producto"})})
+@Table(name = "pedidos")
 public class Pedido implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -1914035439630943360L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ped_id")
 	private long ped_id;
+
+	// ola esta es una prueba gg
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "persona_id")
+	private Usuario persona;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pedido", cascade = CascadeType.ALL)
+	private List<Detalle_Pedido> detalle;
+
+	public Pedido() {
+		this.detalle = new ArrayList<>();
+	}
 	
-	//ola esta es una prueba gg
 	
 	@Column(name = "ped_fecha")
 	@Temporal(TemporalType.DATE)
 	private Date ped_fecha;
-	
+
 	private String ped_descripcion;
 	private String ped_direccionenvio;
 	private String ped_estado;
-	
-	@OneToOne(mappedBy = "pedido")
-	private Detalle_Pedido detalle_pedido;
-	
-	
+	private String ped_telefono;
+	private long ped_cli_id;
+
 	@PrePersist
 	public void prePersist() {
 		ped_fecha = new Date();
@@ -87,6 +88,37 @@ public class Pedido implements Serializable {
 	public void setPed_estado(String ped_estado) {
 		this.ped_estado = ped_estado;
 	}
-	
-	
+
+	public String getPed_telefono() {
+		return ped_telefono;
+	}
+
+	public void setPed_telefono(String ped_telefono) {
+		this.ped_telefono = ped_telefono;
+	}
+
+	public long getPed_cli_id() {
+		return ped_cli_id;
+	}
+
+	public void setPed_cli_id(long ped_cli_id) {
+		this.ped_cli_id = ped_cli_id;
+	}
+
+	public Usuario getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Usuario persona) {
+		this.persona = persona;
+	}
+
+	public List<Detalle_Pedido> getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(List<Detalle_Pedido> detalle) {
+		this.detalle = detalle;
+	}
+
 }

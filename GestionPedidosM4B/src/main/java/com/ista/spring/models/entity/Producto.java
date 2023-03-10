@@ -1,6 +1,7 @@
 package com.ista.spring.models.entity;
 
 import java.io.Serializable;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="productos")
@@ -25,21 +28,30 @@ public class Producto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long prod_id;
-	
+	private String prod_codigo;
 	private String prod_nombre;
 	private String prod_tipo;
+	private Integer prod_stock;
 	private String prod_descripcion;
 	private double prod_preciounitario;
+	private String prod_img;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_producto")
-	private List<Pedido> pedido;
+	private Detalle_Pedido detalle;
 	
 	public long getProd_id() {
 		return prod_id;
 	}
 	public void setProd_id(long prod_id) {
 		this.prod_id = prod_id;
+	}
+	
+	public String getProd_codigo() {
+		return prod_codigo;
+	}
+	public void setProd_codigo(String prod_codigo) {
+		this.prod_codigo = prod_codigo;
 	}
 	public String getProd_nombre() {
 		return prod_nombre;
@@ -64,6 +76,19 @@ public class Producto implements Serializable {
 	}
 	public void setProd_preciounitario(double prod_preciounitario) {
 		this.prod_preciounitario = prod_preciounitario;
+	}
+	
+	public Integer getProd_stock() {
+		return prod_stock;
+	}
+	public void setProd_stock(Integer prod_stock) {
+		this.prod_stock = prod_stock;
+	}
+	public String getProd_img() {
+		return prod_img;
+	}
+	public void setProd_img(String prod_img) {
+		this.prod_img = prod_img;
 	}
 	
 	
