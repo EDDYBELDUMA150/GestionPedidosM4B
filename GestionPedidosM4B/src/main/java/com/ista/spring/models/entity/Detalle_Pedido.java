@@ -1,6 +1,7 @@
 package com.ista.spring.models.entity;
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -31,17 +33,27 @@ public class Detalle_Pedido implements Serializable {
 	
 	
 	private int deta_cantidad;
-	private String deta_descripcion;
+	
 	private double deta_precio_total;
 	private long det_prod_id;
-	private long det_ped_id;
 	
+	//sadasdasdasdasdasdasdasdasdasdasdadasd
 	@ManyToOne(fetch= FetchType.LAZY, cascade= CascadeType.ALL)
 	@JoinColumn(name="pedido_id")
 	private Pedido pedido;
 	
 	
 	
+	
+	
+	
+	
+	public Pedido getPedido() {
+		return pedido;
+	}
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 	public long getDeta_id() {
 		return deta_id;
 	}
@@ -54,12 +66,7 @@ public class Detalle_Pedido implements Serializable {
 	public void setDeta_cantidad(int deta_cantidad) {
 		this.deta_cantidad = deta_cantidad;
 	}
-	public String getDeta_descripcion() {
-		return deta_descripcion;
-	}
-	public void setDeta_descripcion(String deta_descripcion) {
-		this.deta_descripcion = deta_descripcion;
-	}
+	
 	public double getDeta_precio_total() {
 		return deta_precio_total;
 	}
@@ -72,17 +79,7 @@ public class Detalle_Pedido implements Serializable {
 	public void setDet_prod_id(long det_prod_id) {
 		this.det_prod_id = det_prod_id;
 	}
-	public long getDet_ped_id() {
-		return det_ped_id;
-	}
-	public void setDet_ped_id(long det_ped_id) {
-		this.det_ped_id = det_ped_id;
-	}
-	public Pedido getPedido() {
-		return pedido;
-	}
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
+	
+	
 	
 }

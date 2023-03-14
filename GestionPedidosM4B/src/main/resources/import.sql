@@ -45,5 +45,4 @@ INSERT INTO `usuarios` (`usu_apellido`, `usu_clave`, `usu_correo`, `usu_direccio
 
 
 
-INSERT INTO `clientes`(`cli_identificacion`,`cli_nombres`,`cli_apellidos`,`cli_correo`,`cli_clave`,`cli_telefono`)VALUES('0150066686','Marcos Horacio','Pillco Contreras','marcospillcocontreras@gmail.com','marcos2001=','0958814375');
 
