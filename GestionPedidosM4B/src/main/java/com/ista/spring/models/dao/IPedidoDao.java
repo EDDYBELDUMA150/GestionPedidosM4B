@@ -9,4 +9,6 @@ import com.ista.spring.models.entity.Pedido;
 
 public interface IPedidoDao extends CrudRepository<Pedido,Long>{
 
+	
+	
 }
