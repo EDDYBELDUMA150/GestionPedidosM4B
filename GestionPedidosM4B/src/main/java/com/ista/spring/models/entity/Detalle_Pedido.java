@@ -42,7 +42,7 @@ public class Detalle_Pedido implements Serializable {
 	@JoinColumn(name="pedido_id")
 	private Pedido pedido;
 	
-	
+	//comit prueba pillco
 	
 	
 	

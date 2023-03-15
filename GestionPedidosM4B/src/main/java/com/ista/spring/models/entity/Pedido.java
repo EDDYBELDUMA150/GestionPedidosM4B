@@ -32,7 +32,7 @@ public class Pedido implements Serializable {
 	public Pedido() {
 		this.detalle = new ArrayList<>();
 	}
-	
+	//prueba commit pillco
 
 	
 	
