@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,8 @@ public class Producto implements Serializable {
 	private String prod_descripcion;
 	private double prod_preciounitario;
 	private String imagen;
+	
+	@Column(name= "prod_img", columnDefinition= "LONGBLOB")
 	private String prod_img;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
