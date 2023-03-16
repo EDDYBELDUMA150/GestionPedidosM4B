@@ -37,7 +37,7 @@ public class Producto implements Serializable {
 	private String prod_img;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_producto")
+	@JoinColumn(name = "deta_id")
 	private Detalle_Pedido detalle;
 	
 	public long getProd_id() {

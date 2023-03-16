@@ -35,19 +35,27 @@ public class Detalle_Pedido implements Serializable {
 	private int deta_cantidad;
 	
 	private double deta_precio_total;
-	private long det_prod_id;
+	//private long det_prod_id;
 	
 	//sadasdasdasdasdasdasdasdasdasdasdadasd
-	@ManyToOne(fetch= FetchType.LAZY, cascade= CascadeType.ALL)
+	@OneToOne(fetch= FetchType.LAZY, cascade= CascadeType.ALL)
 	@JoinColumn(name="pedido_id")
 	private Pedido pedido;
 	
 	//comit prueba pillco
 	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "det_prod_id")
+	private Producto producto;
 	
 	
 	
-	
+	public Producto getProducto() {
+		return producto;
+	}
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
 	public Pedido getPedido() {
 		return pedido;
 	}
@@ -73,12 +81,12 @@ public class Detalle_Pedido implements Serializable {
 	public void setDeta_precio_total(double deta_precio_total) {
 		this.deta_precio_total = deta_precio_total;
 	}
-	public long getDet_prod_id() {
-		return det_prod_id;
-	}
-	public void setDet_prod_id(long det_prod_id) {
-		this.det_prod_id = det_prod_id;
-	}
+	//public long getDet_prod_id() {
+		//return det_prod_id;
+	//}
+	//public void setDet_prod_id(long det_prod_id) {
+		//this.det_prod_id = det_prod_id;
+	//}
 	
 	
 	

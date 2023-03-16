@@ -46,4 +46,8 @@ INSERT INTO `usuarios` (`usu_apellido`, `usu_clave`, `usu_correo`, `usu_direccio
 INSERT INTO `pedidos`( `ped_direccionenvio`, `ped_estado`, `ped_fecha`, `ped_telefono`, `persona_id`) VALUES ('SAYAUSI','PENDIENTE','2023-03-14','0958814375',1)
 
 
+INSERT INTO `detalle_pedido`( `det_prod_id`, `deta_cantidad`, `deta_precio_total`, `pedido_id`) VALUES (2,5,22.40,1)
+
+INSERT INTO `detalle_pedido`( `det_prod_id`, `deta_cantidad`, `deta_precio_total`, `pedido_id`) VALUES (5,1,10.00,1)
+
 
