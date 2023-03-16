@@ -48,7 +48,7 @@ public class UsuarioRestController {
 	
 	// editar
 	@PutMapping("/usuarios/{id}")
-	@ResponseStatus(HttpStatus.CREATED)		
+	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario update(@RequestBody Usuario usuario, @PathVariable Long id ) {
 		Usuario usuarioActual = usuarioService.findById(id);
 		usuarioActual.setUsu_identificacion(usuario.getUsu_identificacion());
@@ -57,7 +57,6 @@ public class UsuarioRestController {
 		usuarioActual.setUsu_correo(usuario.getUsu_correo());
 		usuarioActual.setUsu_clave(usuario.getUsu_clave());
 		usuarioActual.setUsu_rol(usuario.getUsu_rol());
-		usuarioActual.setUsu_telefono(usuario.getUsu_telefono());
 		return usuarioService.save(usuarioActual);	
 	}
 	

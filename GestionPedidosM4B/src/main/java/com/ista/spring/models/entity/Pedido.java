@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "pedidos")
 public class Pedido implements Serializable {
@@ -19,11 +21,13 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ped_id")
+	@JsonIgnore
 	private long ped_id;
 
 	// ola esta es una prueba gg
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "persona_id")
+	@JsonIgnore
 	private Usuario persona;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pedido", cascade = CascadeType.ALL)

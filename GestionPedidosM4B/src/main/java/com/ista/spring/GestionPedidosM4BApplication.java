@@ -8,8 +8,7 @@ public class GestionPedidosM4BApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GestionPedidosM4BApplication.class, args);
-		System.out.println("pruebaacommit");
-		System.out.println("xx");
+		
 	}
 
 }
