@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 @Entity
-@Table(name = "pedidos",uniqueConstraints =  {@UniqueConstraint(columnNames= {"id_detalle_pedido", "persona_id"})})
+@Table(name = "pedidos")
 public class Pedido implements Serializable {
 
 	/**
@@ -28,7 +28,15 @@ public class Pedido implements Serializable {
 	private String ped_estado;
 	private String ped_telefono;
 	
-
+		@ManyToOne
+		@JoinColumn(name="deta_id", referencedColumnName = "deta_id")
+		private Detalle_Pedido dePedido;
+		
+		@ManyToOne
+		@JoinColumn(name="usu_id", referencedColumnName = "usu_id")
+		private Usuario usuarios;
+	
+	
 	public Pedido() {
 		
 	}
@@ -88,5 +96,23 @@ public class Pedido implements Serializable {
 	public void setPed_telefono(String ped_telefono) {
 		this.ped_telefono = ped_telefono;
 	}
+
+	public Detalle_Pedido getDePedido() {
+		return dePedido;
+	}
+
+	public void setDePedido(Detalle_Pedido dePedido) {
+		this.dePedido = dePedido;
+	}
+
+	public Usuario getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Usuario usuarios) {
+		this.usuarios = usuarios;
+	}
+	
+	
 	
 }

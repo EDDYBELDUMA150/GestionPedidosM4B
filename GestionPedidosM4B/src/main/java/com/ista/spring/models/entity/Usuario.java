@@ -3,15 +3,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.*;
 
 
 @Entity
@@ -52,12 +46,12 @@ public class Usuario implements Serializable {
 		this.usu_direccion = usu_direccion;
 	}
 
+	
+	//RELACION UNO A MUCHOS CON PEDIDOS
+		@JsonIgnore
+		@OneToMany(mappedBy = "usuarios")
+		private List<Pedido> pedidos;
 
-
-	//RELACION UNO A MUCHOS CON PEDIDO
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="persona_id")
-	private List<Pedido> pedidos;
 	
 
 	public long getUsu_id() {
@@ -110,4 +104,13 @@ public class Usuario implements Serializable {
 	public void setUsu_apellido(String usu_apellido) {
 		this.usu_apellido = usu_apellido;
 	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 }

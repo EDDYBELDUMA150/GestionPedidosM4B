@@ -3,25 +3,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
 @Entity
-@Table(name="detalle_pedido",uniqueConstraints = {@UniqueConstraint(columnNames= {"id_producto"})})
+@Table(name="detalle_pedido")
 public class Detalle_Pedido implements Serializable {
 
 	/**
@@ -54,8 +43,8 @@ public class Detalle_Pedido implements Serializable {
 	}
 
 	//RELACION UNO A MUCHOS CON PEDIDOS
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="id_detalle_pedido")
+	@JsonIgnore
+	@OneToMany(mappedBy = "ped_id")
 	private List<Pedido> pedidos;
 	
 	@OneToOne(cascade=CascadeType.ALL)
@@ -95,6 +84,16 @@ public class Detalle_Pedido implements Serializable {
 
 	public void setProductop(Producto productop) {
 		this.productop = productop;
+	}
+
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	
