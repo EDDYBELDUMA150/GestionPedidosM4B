@@ -67,4 +67,10 @@ public class UsuarioRestController {
 	public void delete(@PathVariable Long id) {
 		usuarioService.delete(id);
 	}
+	
+	//Iniciar Sesión
+	@GetMapping("/usuarios/{user}/{pass}")
+	public Usuario show(@PathVariable String user,@PathVariable String pass) {
+		return usuarioService.findByUserPass(user, pass);
+	}
 }

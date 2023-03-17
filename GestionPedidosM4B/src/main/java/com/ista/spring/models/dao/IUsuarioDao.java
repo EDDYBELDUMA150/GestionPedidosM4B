@@ -7,5 +7,4 @@ import com.ista.spring.models.entity.Usuario;
 
 
 public interface IUsuarioDao extends CrudRepository<Usuario,Long>{
-
 }
