@@ -34,7 +34,6 @@ public class Producto implements Serializable {
 	private Integer prod_stock;
 	private String prod_descripcion;
 	private double prod_preciounitario;
-	private String imagen;
 	
 	@Column(name= "prod_img", columnDefinition= "LONGBLOB")
 	private String prod_img;
@@ -55,7 +54,6 @@ public class Producto implements Serializable {
 		this.prod_stock = prod_stock;
 		this.prod_descripcion = prod_descripcion;
 		this.prod_preciounitario = prod_preciounitario;
-		this.imagen = imagen;
 		this.prod_img = prod_img;
 	}
 	
@@ -101,13 +99,6 @@ public class Producto implements Serializable {
 	public void setProd_preciounitario(double prod_preciounitario) {
 		this.prod_preciounitario = prod_preciounitario;
 	}
-
-	public String getImagen() {
-        return imagen;
-    }
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
 
 	public Integer getProd_stock() {
 		return prod_stock;
