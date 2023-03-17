@@ -34,8 +34,14 @@ INSERT INTO `usuarios` (`usu_apellido`, `usu_clave`, `usu_correo`, `usu_direccio
 
 INSERT INTO `detalle_pedido`(`deta_cantidad`, `deta_precio_total`, `id_producto`) VALUES (3,36,1);
 INSERT INTO `detalle_pedido`(`deta_cantidad`, `deta_precio_total`, `id_producto`) VALUES (5,55.2,3);
-INSERT INTO `detalle_pedido`(`deta_cantidad`, `deta_precio_total`, `id_producto`) VALUES (5,23.52,40);
-
+INSERT INTO `detalle_pedido`(`deta_cantidad`, `deta_precio_total`, `id_producto`) VALUES (5,23.52,4);
+INSERT INTO `detalle_pedido`(`deta_cantidad`, `deta_precio_total`, `id_producto`) VALUES (7,66.52,5);
+INSERT INTO `detalle_pedido`(`deta_cantidad`, `deta_precio_total`, `id_producto`) VALUES (10,100,14);
 
 
 INSERT INTO `pedidos`( `ped_direccionenvio`, `ped_estado`, `ped_fecha`, `ped_telefono`, `persona_id`,`id_detalle_pedido`) VALUES ('SAYAUSI','PENDIENTE','2023-03-14','0958814375',1, 1);
+INSERT INTO `pedidos`( `ped_direccionenvio`, `ped_estado`, `ped_fecha`, `ped_telefono`, `persona_id`,`id_detalle_pedido`) VALUES ('REMIGIO CRESPO','PENDIENTE','2023-03-15','0986251033',2, 5);
+INSERT INTO `pedidos`( `ped_direccionenvio`, `ped_estado`, `ped_fecha`, `ped_telefono`, `persona_id`,`id_detalle_pedido`) VALUES ('SANTA ISABEL','PENDIENTE','2023-03-12','0994975590',3, 3);
+INSERT INTO `pedidos`( `ped_direccionenvio`, `ped_estado`, `ped_fecha`, `ped_telefono`, `persona_id`,`id_detalle_pedido`) VALUES ('GRAN COLOMBIA','PENDIENTE','2023-03-17','0986342911',4, 2);
+INSERT INTO `pedidos`( `ped_direccionenvio`, `ped_estado`, `ped_fecha`, `ped_telefono`, `persona_id`,`id_detalle_pedido`) VALUES ('GRAN COLOMBIA','PENDIENTE','2023-03-16','072360092',5, 4);
+
