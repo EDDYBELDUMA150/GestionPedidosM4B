@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name="detalle_pedido")
+@Table(name="detalle_pedido",uniqueConstraints = {@UniqueConstraint(columnNames= {"id_producto"})})
 public class Detalle_Pedido implements Serializable {
 
 	/**
@@ -38,25 +38,31 @@ public class Detalle_Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long deta_id;
-	
-	
 	private Integer deta_cantidad;
-	
 	private Double deta_precio_total;
-	//private long det_prod_id;
 	
-	//sadasdasdasdasdasdasdasdasdasdasdadasd
-	@ManyToOne(fetch= FetchType.LAZY, cascade= CascadeType.ALL)
-	@JoinColumn(name="pedido_id")
-	@JsonIgnore
-	private Pedido pedido;
+	public Detalle_Pedido() {
+		
+	}
 	
-	//comit prueba pillco
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "det_prod_id")
-	@JsonIgnore
-	private Producto producto;
+	public Detalle_Pedido(Long deta_id, Integer deta_cantidad, Double deta_precio_total) {
+		super();
+		this.deta_id = deta_id;
+		this.deta_cantidad = deta_cantidad;
+		this.deta_precio_total = deta_precio_total;
+	}
+
+	//RELACION UNO A MUCHOS CON PEDIDOS
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="id_detalle_pedido")
+	private List<Pedido> pedidos;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="id_producto")
+	private Producto productop;
+	
+	
 
 	public Long getDeta_id() {
 		return deta_id;
@@ -82,30 +88,15 @@ public class Detalle_Pedido implements Serializable {
 		this.deta_precio_total = deta_precio_total;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
+
+	public Producto getProductop() {
+		return productop;
 	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+	public void setProductop(Producto productop) {
+		this.productop = productop;
 	}
 
-	public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
-	
-	
-	
-	//public long getDet_prod_id() {
-		//return det_prod_id;
-	//}
-	//public void setDet_prod_id(long det_prod_id) {
-		//this.det_prod_id = det_prod_id;
-	//}
 	
 	
 	

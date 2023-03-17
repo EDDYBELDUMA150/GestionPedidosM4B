@@ -6,11 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "pedidos")
+@Table(name = "pedidos",uniqueConstraints =  {@UniqueConstraint(columnNames= {"id_detalle_pedido", "persona_id"})})
 public class Pedido implements Serializable {
 
 	/**
@@ -21,37 +18,7 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ped_id")
-	@JsonIgnore
 	private long ped_id;
-
-	// ola esta es una prueba gg
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "persona_id")
-	@JsonIgnore
-	private Usuario persona;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pedido", cascade = CascadeType.ALL)
-	private List<Detalle_Pedido> detalle;
-
-	public Pedido() {
-		this.detalle = new ArrayList<>();
-	}
-	//prueba commit pillco
-
-	
-	
-	
-	public List<Detalle_Pedido> getDetalle() {
-		return detalle;
-	}
-
-	public void setDetalle(List<Detalle_Pedido> detalle) {
-		this.detalle = detalle;
-	}
-
-
-
-
 
 	@Column(name = "ped_fecha")
 	@Temporal(TemporalType.DATE)
@@ -61,10 +28,20 @@ public class Pedido implements Serializable {
 	private String ped_estado;
 	private String ped_telefono;
 	
+
+	public Pedido() {
+		
+	}
 	
-	
-	
-	
+	public Pedido(long ped_id, Date ped_fecha, String ped_direccionenvio, String ped_estado, String ped_telefono) {
+		super();
+		this.ped_id = ped_id;
+		this.ped_fecha = ped_fecha;
+		this.ped_direccionenvio = ped_direccionenvio;
+		this.ped_estado = ped_estado;
+		this.ped_telefono = ped_telefono;
+	}
+
 
 	@PrePersist
 	public void prePersist() {
@@ -87,7 +64,6 @@ public class Pedido implements Serializable {
 		this.ped_fecha = ped_fecha;
 	}
 
-	
 
 	public String getPed_direccionenvio() {
 		return ped_direccionenvio;
@@ -112,19 +88,5 @@ public class Pedido implements Serializable {
 	public void setPed_telefono(String ped_telefono) {
 		this.ped_telefono = ped_telefono;
 	}
-
 	
-
-	public Usuario getPersona() {
-		return persona;
-	}
-
-	public void setPersona(Usuario persona) {
-		this.persona = persona;
-	}
-
-	
-
-	
-
 }

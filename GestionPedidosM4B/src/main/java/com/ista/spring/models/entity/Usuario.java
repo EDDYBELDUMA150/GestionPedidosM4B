@@ -9,10 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -36,17 +35,30 @@ public class Usuario implements Serializable {
 	private String usu_direccion;
 	
 	
-	
-	
-	@OneToMany(fetch= FetchType.LAZY, mappedBy = "persona", cascade= CascadeType.ALL)
-	@JsonIgnore
-	private List<Pedido> pedido;
-	
-	
-    
-    public Usuario() {
-		this.pedido = new ArrayList<>();
+	public Usuario() {
+		
 	}
+	
+	public Usuario(long usu_id, String usu_nombre, String usu_apellido, String usu_identificacion, String usu_correo,
+			String usu_clave, String usu_rol, String usu_direccion) {
+		super();
+		this.usu_id = usu_id;
+		this.usu_nombre = usu_nombre;
+		this.usu_apellido = usu_apellido;
+		this.usu_identificacion = usu_identificacion;
+		this.usu_correo = usu_correo;
+		this.usu_clave = usu_clave;
+		this.usu_rol = usu_rol;
+		this.usu_direccion = usu_direccion;
+	}
+
+
+
+	//RELACION UNO A MUCHOS CON PEDIDO
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="persona_id")
+	private List<Pedido> pedidos;
+	
 
 	public long getUsu_id() {
 		return usu_id;
@@ -98,13 +110,4 @@ public class Usuario implements Serializable {
 	public void setUsu_apellido(String usu_apellido) {
 		this.usu_apellido = usu_apellido;
 	}
-
-	public List<Pedido> getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(List<Pedido> pedido) {
-		this.pedido = pedido;
-	}
-	
 }

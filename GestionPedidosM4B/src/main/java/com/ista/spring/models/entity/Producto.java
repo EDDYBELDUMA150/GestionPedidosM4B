@@ -11,10 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 
 @Entity
@@ -39,10 +38,31 @@ public class Producto implements Serializable {
 	
 	@Column(name= "prod_img", columnDefinition= "LONGBLOB")
 	private String prod_img;
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_producto")
-	private Detalle_Pedido detalle;
+	
+	
+	public Producto(){
+		
+	}
+	
+	
+	public Producto(long prod_id, String prod_codigo, String prod_nombre, String prod_tipo, Integer prod_stock,
+			String prod_descripcion, double prod_preciounitario, String imagen, String prod_img) {
+		super();
+		this.prod_id = prod_id;
+		this.prod_codigo = prod_codigo;
+		this.prod_nombre = prod_nombre;
+		this.prod_tipo = prod_tipo;
+		this.prod_stock = prod_stock;
+		this.prod_descripcion = prod_descripcion;
+		this.prod_preciounitario = prod_preciounitario;
+		this.imagen = imagen;
+		this.prod_img = prod_img;
+	}
+	
+	
+	//RELACION UNO A UNO CON VEHICULO
+	@OneToOne(mappedBy = "productop")
+	private Detalle_Pedido detallePedido;
 	
 	public long getProd_id() {
 		return prod_id;
