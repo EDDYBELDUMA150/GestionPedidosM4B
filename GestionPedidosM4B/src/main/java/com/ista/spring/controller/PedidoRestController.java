@@ -71,7 +71,7 @@ public class PedidoRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			try {
-		ped.setPed_descripcion(pedidoRb.getPed_descripcion());
+		
 		ped.setPed_direccionenvio(pedidoRb.getPed_direccionenvio());
 		ped.setPed_estado(pedidoRb.getPed_estado());
 		ped.setPed_fecha(pedidoRb.getPed_fecha());

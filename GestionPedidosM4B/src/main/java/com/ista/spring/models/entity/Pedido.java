@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "pedidos")
 public class Pedido implements Serializable {
@@ -19,11 +21,13 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ped_id")
+	@JsonIgnore
 	private long ped_id;
 
 	// ola esta es una prueba gg
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "persona_id")
+	@JsonIgnore
 	private Usuario persona;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pedido", cascade = CascadeType.ALL)
@@ -32,17 +36,35 @@ public class Pedido implements Serializable {
 	public Pedido() {
 		this.detalle = new ArrayList<>();
 	}
+	//prueba commit pillco
+
 	
 	
+	
+	public List<Detalle_Pedido> getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(List<Detalle_Pedido> detalle) {
+		this.detalle = detalle;
+	}
+
+
+
+
+
 	@Column(name = "ped_fecha")
 	@Temporal(TemporalType.DATE)
 	private Date ped_fecha;
 
-	private String ped_descripcion;
 	private String ped_direccionenvio;
 	private String ped_estado;
 	private String ped_telefono;
-	private long ped_cli_id;
+	
+	
+	
+	
+	
 
 	@PrePersist
 	public void prePersist() {
@@ -65,13 +87,7 @@ public class Pedido implements Serializable {
 		this.ped_fecha = ped_fecha;
 	}
 
-	public String getPed_descripcion() {
-		return ped_descripcion;
-	}
-
-	public void setPed_descripcion(String ped_descripcion) {
-		this.ped_descripcion = ped_descripcion;
-	}
+	
 
 	public String getPed_direccionenvio() {
 		return ped_direccionenvio;
@@ -97,13 +113,7 @@ public class Pedido implements Serializable {
 		this.ped_telefono = ped_telefono;
 	}
 
-	public long getPed_cli_id() {
-		return ped_cli_id;
-	}
-
-	public void setPed_cli_id(long ped_cli_id) {
-		this.ped_cli_id = ped_cli_id;
-	}
+	
 
 	public Usuario getPersona() {
 		return persona;
@@ -113,12 +123,8 @@ public class Pedido implements Serializable {
 		this.persona = persona;
 	}
 
-	public List<Detalle_Pedido> getDetalle() {
-		return detalle;
-	}
+	
 
-	public void setDetalle(List<Detalle_Pedido> detalle) {
-		this.detalle = detalle;
-	}
+	
 
 }

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,15 +35,18 @@ public class Producto implements Serializable {
 	private Integer prod_stock;
 	private String prod_descripcion;
 	private double prod_preciounitario;
-	private String prod_img;
+	private String imagen;
 	
+	@Column(name= "prod_img", columnDefinition= "LONGBLOB")
+	private String prod_img;
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_producto")
 	private Detalle_Pedido detalle;
 	
 	public long getProd_id() {
 		return prod_id;
-	}
+	}	
 	public void setProd_id(long prod_id) {
 		this.prod_id = prod_id;
 	}
@@ -77,7 +81,14 @@ public class Producto implements Serializable {
 	public void setProd_preciounitario(double prod_preciounitario) {
 		this.prod_preciounitario = prod_preciounitario;
 	}
-	
+
+	public String getImagen() {
+        return imagen;
+    }
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
 	public Integer getProd_stock() {
 		return prod_stock;
 	}
@@ -90,6 +101,5 @@ public class Producto implements Serializable {
 	public void setProd_img(String prod_img) {
 		this.prod_img = prod_img;
 	}
-	
 	
 }

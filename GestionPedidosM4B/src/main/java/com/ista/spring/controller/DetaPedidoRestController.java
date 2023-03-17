@@ -30,6 +30,7 @@ public class DetaPedidoRestController {
 	public IDetalle_PedidoService detalleService;
 	
 	//listar todos
+	@GetMapping("/detalle/list")
 	public ResponseEntity<List<Detalle_Pedido>> list() {
 		try {
 			return new ResponseEntity<>(detalleService.findAll(), HttpStatus.OK);
@@ -71,7 +72,7 @@ public class DetaPedidoRestController {
 		} else {
 			try {
 				det.setDeta_cantidad(detalleRb.getDeta_cantidad());
-				det.setDeta_descripcion(detalleRb.getDeta_descripcion());
+				
 				det.setDeta_precio_total(detalleRb.getDeta_precio_total());
 		return new ResponseEntity<>(detalleService.save(detalleRb), HttpStatus.CREATED);
 			} catch (Exception e) {

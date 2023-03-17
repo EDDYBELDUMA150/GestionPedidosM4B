@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="usuarios")
@@ -22,20 +24,25 @@ public class Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Id	
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long usu_id;
-	private String usu_nombre;		
+	private String usu_nombre;
 	private String usu_apellido;
 	private String usu_identificacion;
 	private String usu_correo;
 	private String usu_clave;
 	private String usu_rol;
 	private String usu_direccion;
-	private String usu_telefono;
+	
+	
+	
 	
 	@OneToMany(fetch= FetchType.LAZY, mappedBy = "persona", cascade= CascadeType.ALL)
-    private List<Pedido> pedido;
+	@JsonIgnore
+	private List<Pedido> pedido;
+	
+	
     
     public Usuario() {
 		this.pedido = new ArrayList<>();
@@ -99,14 +106,5 @@ public class Usuario implements Serializable {
 	public void setPedido(List<Pedido> pedido) {
 		this.pedido = pedido;
 	}
-
-	public String getUsu_telefono() {
-		return usu_telefono;
-	}
-
-	public void setUsu_telefono(String usu_telefono) {
-		this.usu_telefono = usu_telefono;
-	}
-	
 	
 }
